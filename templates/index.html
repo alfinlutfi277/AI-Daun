@@ -2,199 +2,249 @@
 <html lang="en">
 
 <head>
-    <title>MTCD</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="static/vendor/bootstrap/css/bootstrap.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="static/vendor/animate/animate.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="static/vendor/css-hamburgers/hamburgers.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="static/vendor/select2/select2.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="static/css/util.css">
-    <link rel="stylesheet" type="text/css" href="static/css/main.css">
-    <link rel="stylesheet" type="text/css" href="static/css/files.css">
-    <style>
-        #ïmag {
-            padding-left: 10px;
-            padding-right: 10px;
-            padding-top: 10px;
-            padding-bottom: 10px;
-            float: center;
-            width: 30%;
-        }
-
-        #input {
-            font-family: Poppins-Medium;
-            font-size: 15px;
-            line-height: 1.5;
-            color: #666666;
-            visibility: visible;
-            display: block;
-            width: 100%;
-            background: #e6e6e6;
-            height: 50px;
-            border-radius: 25px;
-            padding: 0 30px 0 68px;
-        }
-    </style>
-    <!--===============================================================================================-->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Pola CBIR</title>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  <!-- Icons -->
+  <link href="{{url_for('static', filename='assets/js/plugins/nucleo/css/nucleo.css')}}" rel="stylesheet" />
+  <link href="{{url_for('static', filename='assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css')}}" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link href="{{url_for('static', filename='assets/css/argon-dashboard.css')}}" rel="stylesheet" />
+  <style>.copyleft {display:inline-block; transform: rotate(180deg);}</style>
 </head>
-
-<body>
-    <div class="limiter">
-        <div class="container-login100">
-            <div class="wrap-login100">
-                <div class="wrap-title">
-                    <span class="login100-form-mytitle">
-                        MTCD for Image Retrieval
-                    </span>
-                </div>
-                <div class="login100-pic js-tilt" data-tilt>
-                    <img id="image-preview" alt="image preview" />
-                </div>
-
-                <!--query by upload -->
-                <form class="login100-form validate-form" method=post enctype=multipart/form-data> <span
-                    class="login100-form-title">
-                    Upload an Image File
-                    </span>
-                    <div class="container-login100-form-btn">
-                        <div class="wrap-input100 validate-input" data-validate="Image file is required" id="input">
-                            <input class="input100" id="image-source" name="file" onchange="previewImage();" type="file"
-                                alt="Input Image" accept="image/jpeg,image/jpg,image/png">
-                            <span class="focus-input100"></span>
-                            <span class="symbol-input100">
-                                <i class="fa fa-file" aria-hidden="true"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="container-login100-form-btn">
-                        <button class="login100-form-btn" type="submit">
-                            Execute
-                        </button>
-                    </div>
-                </form>
-                <!--query by upload -->
-
-                <!-- sample query -->
-                <br><br><br><br><br>
-                <h2 style="padding-left: 10px;">
-                    Select Sample Query
-                </h2>
-
-                <section class="contact-section centred" style="padding-top:10px;" id="predict2">
-                    <div class="container">
-                        <table>
-                            <tr>
-                                <td>
-                                    <form action="/predict" method="post">
-                                        <div class="row" style="padding-bottom: 1%;">
-                                            <div class="column">
-                                                <input type="hidden" name="input_image" id="count"
-                                                    value="static/mtcd/find1.jpg" />
-                                                <input type="image" name="submit"
-                                                    onclick="change('static/mtcd/find1.jpg')"
-                                                    style="height: 150px;width: 235px;padding-left: 10%;"
-                                                    src="{{ url_for('static', filename='mtcd/find1.jpg')}}" />
-                                            </div>
-                                        </div>
-                                    </form>
-                                </td>
-                                <td>
-                                    <form action="/predict" method="post">
-                                        <div class="row" style="padding-bottom: 1%;">
-                                            <div class="column">
-                                                <input type="hidden" name="input_image" id="count"
-                                                    value="static/mtcd/find2.jpg" />
-                                                <input type="image" name="submit"
-                                                    onclick="change('static/mtcd/find2.jpg')"
-                                                    style="height: 150px;width: 235px;padding-left: 10%;"
-                                                    src="{{ url_for('static', filename='mtcd/find2.jpg')}}" />
-                                            </div>
-                                        </div>
-                                    </form>
-                                </td>
-                                <td>
-                                    <form action="/predict" method="post">
-                                        <div class="row" style="padding-bottom: 1%;">
-                                            <div class="column">
-                                                <input type="hidden" name="input_image" id="count"
-                                                    value="static/mtcd/find3.jpg" />
-                                                <input type="image" name="submit"
-                                                    onclick="change('static/mtcd/find3.jpg')"
-                                                    style="height: 150px;width: 235px;padding-left: 10%;"
-                                                    src="{{ url_for('static', filename='mtcd/find3.jpg')}}" />
-                                            </div>
-                                        </div>
-                                    </form>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </section>
-
-                <!-- sample query end -->
-
-                <div class="wrap-title"><br><br><br><br>
-                    <span class="login100-form-mytitle">
-                        Retrieval Result
-                    </span>
-                    <h1 style="padding-left: 10px;">
-                        Last Query Image
-                    </h1>
-                </div>
-                <div>
-                    <img style="padding-left: 10px;padding-top: 10px;padding-bottom: 10px;width: 70%;"
-                        src="../static/uploads/queryImg.jpg" />
-                </div>
-                <div>
-                    <br>
-                    <h2 style="padding-left: 10px;">
-                        Last Retrieval Image Result
+{% block content %}
+<body class="">
+  <div class="main-content">
+    <!-- Navbar -->
+    <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
+      <div class="container-fluid">
+        <!-- Brand -->
+        <span class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block">Content Based Image Retrival</span>
+        <div class="media align-items-center">
+          <div class="media-body ml-2 d-none d-lg-block">
+            <a href="#" class="mb-0 text-sm  font-weight-bold text-white">Update Dataset</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!-- End Navbar -->
+    <!-- Header -->
+    <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+      <div class="container-fluid">
+        <div class="header-body">
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid mt--7">
+      <div class="row">
+        <!-- pick picture -->
+        <div class="col-xl-4">
+          <div class="card shadow">
+            <div class="card-header bg-transparent">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h6 class="text-uppercase text-muted ls-1 mb-1"><i class="ni ni-folder-17"></i> Upload</h6>
+                  <h2 class="mb-0">
+                    {% if aw == 2 %}
+                      Pick Your Picture
+                    {% else %}
+                      Your Picture
+                    {% endif %}
                     </h2>
-                    <img id="ïmag" src="static/result/res1.jpg" alt="Result 1">
-                    <img id="ïmag" src="static/result/res2.jpg" alt="Result 2">
-                    <img id="ïmag" src="static/result/res3.jpg" alt="Result 3">
-                    <br>
-                    <img id="ïmag" src="static/result/res4.jpg" alt="Result 4">
-                    <img id="ïmag" src="static/result/res5.jpg" alt="Result 5">
-                    <img id="ïmag" src="static/result/res6.jpg" alt="Result 6">
-                    <br>
-                    <img id="ïmag" src="static/result/res7.jpg" alt="Result 7">
-                    <img id="ïmag" src="static/result/res8.jpg" alt="Result 8">
-                    <img id="ïmag" src="static/result/res9.jpg" alt="Result 9">
-                    <br>
-                    <img id="ïmag" src="static/result/res10.jpg" alt="Result 10">
-                    <img id="ïmag" src="static/result/res11.jpg" alt="Result 11">
-                    <img id="ïmag" src="static/result/res12.jpg" alt="Result 12">
                 </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="box-body">
+                <div class="form-group">
+                  <form action="/search" method="post" enctype="multipart/form-data">
+                  <div class="text-center">
+                    {% if aw == 2 %}
+                      <input type="file" required name="image" accept="image/*" style="margin-bottom: 30px; margin-top: 20px;">
+                      <button type="submit" class="btn btn-primary my-4" value="Submit"><i class="ni ni-send"></i> Cari Gambar</button>
+                      <button type="reset"  class="btn btn-danger my-4" value="Reset"><i class="ni ni-fat-remove"></i> Reset</button>
+                    {% else %}
+                    {% for turget in target %}
+                    <div class="row">
+                      <div class="col-xl-12">
+                        <img class="img-fluid" src="static/tmp/{{turget}}">
+                    </div>
+                    </div>
+                    {% endfor %}
+                      <a href="/" class="btn btn-primary my-4"><i class="ni ni-button-power"></i> Cari lagi</a>
+                    {% endif %}
+                </div>
+                </form>
+                </div>
+              </div>
+            </form>
+            </div>
+          </div><br>
+          <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Dataset Tersedia</h5>
+                      <span class="h2 font-weight-bold mb-0">{{ count }} Gambar</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-info text-white rounded-circle shadow">
+                        <i class="fas fa-chart-bar"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% if aw == 1 %}
+              <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Nilai Terbaik</h5>
+                      <span class="h2 font-weight-bold mb-0">{{ nearest[-0:-6] }}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-success text-white rounded-circle shadow">
+                        <i class="ni ni-chart-bar-32"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Akurasi</h5>
+                      <span class="h2 font-weight-bold mb-0">{{ akurasi }} %</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                        <i class="fas fa-crosshairs"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Presisi</h5>
+                      <span class="h2 font-weight-bold mb-0">{{ presisi }} %</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-primary text-white rounded-circle shadow">
+                        <i class="fas fa-percentage"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">F1 Score</h5>
+                      <span class="h2 font-weight-bold mb-0">{{ f1 }} %</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+                        <i class="fas fa-rocket"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Recall</h5>
+                      <span class="h2 font-weight-bold mb-0">{{ rekal }} %</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-primary text-white rounded-circle shadow">
+                        <i class="fas fa-phone"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+        </div>
+
+        <!--end of pick picture -->
+
+        <div class="col-xl-8 mb-5 mb-xl-0">
+          <div class="card bg-gradient-default shadow">
+            <div class="card-header bg-transparent">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h6 class="text-uppercase text-light ls-1 mb-2"><i class="ni ni-tv-2"></i> Result</h6>
+                  <h2 class="text-white mb-0">Hasil Pencarian</h2>
+                </div>
+              </div>
+            </div>
+            <div class="card-body" {% if aw == 2 %} style="height: 350px" {% endif %}>
+                {% if aw == 2 %}
+                  <p class="text-white">Masih <b>Belum</b> ada hasil,<br><b>Karena belum dicari</b> <i class="ni ni-user-run"></i><br>Kalau sudah <b>pasti bakalan</b> muncul kok ...
+                  <br><br>Kalau terjadi <b>error</b> komplain disini <i class="fas fa-hand-point-right"></i> <b><a target="_blank" href="https://github.com/ledleledle/WebCBIR/issues/new">Github Open Issue</a></b><br><br>Big <i class="fas fa-heart text-danger"></i> from <b>Developer</b></p>
+                {% else %}
+                <div class="table-responsive">
+                <table class="table align-items-center table-flush text-white">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">No.</th>
+                      <th scope="col">Gambar</th>
+                      <th scope="col">Nilai</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% set count = namespace(value=1) %}
+                      {% for image_name in image_names %}
+                        <tr>
+                          <td>{{ count.value }}</td>
+                          {% set count.value = count.value + 1 %}
+                          <td><img class="img-responsive" src="static/temp/{{image_name}}"></td>
+                          <td>{{image_name[-0:-6]}}</td>
+                        </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+                </div>
+                {% endif %}
+              </div>
             </div>
         </div>
+        {% endblock content %}
+      </div>
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="row align-items-center justify-content-xl-between">
+          <div class="col-xl-6">
+            <div class="copyright text-center text-xl-left text-muted">
+              &copy; 2018 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
+            </div>
+          </div>
+          <div class="col-xl-6">
+            <ul class="nav nav-footer justify-content-center justify-content-xl-end">
+              <li class="nav-item">
+                <a href="https://github.com/ledleledle" class="nav-link" target="_blank"><span class="copyleft">&copy;</span> 2019 Copylefted by <b>ledleledle</b></a>
+              </li>
+              <li class="nav-item">
+                <a href="https://raw.githubusercontent.com/ledleledle/WebCBIR/master/LICENSE" class="nav-link" target="_blank">GNU License</a>
+              </li>
+              <li class="nav-item">
+                <a href="https://github.com/ledleledle/WebCBIR" class="nav-link" target="_blank">GitHub Repo</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </footer>
     </div>
-
-    <!--===============================================================================================-->
-    <script src="static/vendor/jquery/jquery-3.2.1.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="static/vendor/bootstrap/js/popper.js"></script>
-    <script src="static/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="static/vendor/select2/select2.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="static/vendor/tilt/tilt.jquery.min.js"></script>
-    <script>
-        $('.js-tilt').tilt({
-            scale: 1.1
-        })
-    </script>
-    <script src="static/js/files.js"></script>
-    <!--===============================================================================================-->
-    <script src="static/js/main.js"></script>
+  </div>
 </body>
-
 </html>
