@@ -15,21 +15,24 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['RESULT_FOLDER'] = RESULT_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024
 
+
 @app.after_request
 def add_header(r):
-    
-    #Add headers to both force latest IE rendering engine or Chrome Frame,
-    #and also to cache the rendered page for 10 minutes.
-    
+
+    # Add headers to both force latest IE rendering engine or Chrome Frame,
+    # and also to cache the rendered page for 10 minutes.
+
     r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
     r.headers["Pragma"] = "no-cache"
     r.headers["Expires"] = "0"
     r.headers['Cache-Control'] = 'public, max-age=0'
     return r
 
+
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
@@ -48,26 +51,30 @@ def upload_file():
             filename = secure_filename("queryImg.jpg")
             data = os.path.join('static/uploads/', 'queryImg.jpg')
             file.save(data)
-            mtcd.process_file(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            mtcd.process_file(os.path.join(
+                app.config['UPLOAD_FOLDER'], filename))
             return redirect(url_for('result_file'))
     return render_template('index.html')
+
 
 @app.route('/', methods=['GET', 'POST'])
 def result_file():
     return render_template('index.html')
 
+
 @app.route('/predict', methods=['GET', 'POST'])
 def mtcd_predict():
     if request.method == 'POST':
         filename = request.form.get('input_image')
-        if filename and allowed_file(filename):  
+        if filename and allowed_file(filename):
             img = Image.open(filename)
             # img = cv2.cvtColor(np.array(img), cv2.COLOR_BGR2RGB)
-            img = img.save("static/uploads/queryImg.jpg")             
+            img = img.save("static/uploads/queryImg.jpg")
             data = os.path.join('static/uploads/queryImg.jpg')
             mtcd.process_file(data)
             return redirect('/')
-    return render_template('/index.html', len = len(datahasil), datahasil = datahasil)
+    return render_template('/index.html', len=len(datahasil), datahasil=datahasil)
+
 
 if __name__ == '__main__':
     app.run()
