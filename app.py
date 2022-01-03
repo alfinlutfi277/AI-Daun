@@ -1,4 +1,3 @@
-from flask import Flask, make_response, render_template, request, redirect
 from libnya.colordescriptor import ColorDescriptor
 from libnya.pencari import Searcher
 from PIL import Image
@@ -8,6 +7,11 @@ import os
 import shutil
 import time
 import csv
+import os
+from flask import Flask, flash, request, redirect, url_for, send_from_directory, Request, render_template
+from werkzeug.utils import secure_filename
+import mtcd
+from PIL import Image
 
 app = Flask(__name__)
 
@@ -50,8 +54,7 @@ def home():
         image_names = os.listdir('static/temp')
         nearest = sorted(os.listdir('static/temp'))[0]
         target = os.listdir('static/tmp')
-        return render_template("index.html", f1=(f1), akurasi=(akurasi), presisi=(presisi), rekal=(rekal), image_names=sorted(image_names),
-                               target=(target), aw=1, count=len(datasets), nearest=(nearest))
+        return render_template("index.html", f1=(f1), akurasi=(akurasi), presisi=(presisi), rekal=(rekal), image_names=sorted(image_names), target=(target), aw=1, count=len(datasets), nearest=(nearest))
     else:
         return render_template("index.html", aw=2, count=len(datasets))
 
@@ -99,8 +102,8 @@ def search():
 
 @app.route('/<page_name>')
 def other_page(page_name):
-    response = make_response('The page named %s does not exist.'
-                             % page_name, 404)
+    response = make_response(
+        'The page named %s does not exist.' % page_name, 404)
     return response
 
 
