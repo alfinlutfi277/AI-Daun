@@ -8,7 +8,7 @@
             href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
             rel="stylesheet"
         />
-        <title>Male vs Female App</title>
+        <title>Kecerdasan Buatan</title>
     </head>
     <body>
         <section
@@ -18,7 +18,7 @@
                 items-center
                 w-screen
                 h-screen
-                bg-indigo-500
+                bg-green-500
             "
         >
             <main
@@ -31,12 +31,13 @@
                     rounded-lg
                 "
             >
-                <h1 class="text-3xl text-bold">Male vs Female</h1>
+                <h1 class="text-3xl text-bold">Klasifikasi Daun</h1>
+                <h1 class="text-3xl text-bold">Pepaya dan Seledri</h1>
 
                 {% if uploaded_image %}
                 <img
                     src="{{ url_for('send_uploaded_image', filename=uploaded_image) }}"
-                    class="mt-8 mb-4 h-48 border-8 border-gray-200 rounded-md"
+                    class="mt-8 mb-4 h-48 border-8 border-yellow-200 rounded-md"
                 />
                 {% else %}
                 <div
@@ -47,12 +48,12 @@
                         my-8
                         w-48
                         h-48
-                        border-8 border-gray-200
+                        border-8 border-yellow-200
                         rounded-md
                     "
                 >
                     <p class="text-center">
-                        Masukkan gambar pria atau wanita
+                        Masukkan gambar daun Pepaya atau daun Seledri
                     </p>
                 </div>
                 {% endif %} {% if prediction %}
@@ -70,19 +71,22 @@
                         class="
                             mb-4
                             p-4
-                            border-8 border-gray-200
+                            border-8 border-yellow-200
                             rounded-md
                             bg-gray-100
                         "
                     />
                     <button
                         type="submit"
-                        class="p-4 bg-indigo-500 text-white rounded-md"
+                        class="p-4 bg-green-500 text-white rounded-md"
                     >
                         Prediksi Gambar
                     </button>
                 </form>
             </main>
         </section>
+        <footer class="flex gap-x-8 justify-center items-center h-32 bg-white">
+            <p>Pemenuhan Tugas Kecerdasan</p>
+        </footer>
     </body>
 </html>
